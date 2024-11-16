@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор суммы</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: #ffd700;  /* Золотой цвет для заголовка */
+            font-size: 36px;  /* Увеличиваем размер шрифта */
+            font-family: 'Georgia', serif; /* Элегантный шрифт */
+            font-weight: bold;  /* Увеличиваем жирность шрифта */
+            text-transform: uppercase;  /* Делаем текст заглавными буквами */
+            letter-spacing: 2px;  /* Расширяем расстояние между буквами для дополнительного эффекта */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), 0 0 8px rgba(255, 215, 0, 0.8);  /* Легкая тень для четкости */
+            -webkit-font-smoothing: antialiased;  /* Убирает размытость на шрифтах */
+            -moz-osx-font-smoothing: grayscale;  /* Ожидается улучшение четкости на macOS */
+/*            border-bottom: 4px solid #ffd700;  /* Добавляем границу снизу для выделения */*/
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 18px;
+        }
+
+        input[type="number"], input[type="date"] {
+            font-size: 18px; /* Увеличиваем размер шрифта для числовых и датовых полей */
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .button-container button {
+            width: 48%;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            padding: 10px;
+            background: linear-gradient(135deg, #8e44ad, #3498db); /* Элегантный градиентный фон */
+            transition: background 0.3s ease, transform 0.3s ease; /* Плавные эффекты при наведении */
+        }
+
+        .button-container button:hover {
+            background: linear-gradient(135deg, #6c3483, #2980b9); /* Более темный градиент при наведении */
+            transform: scale(1.05); /* Легкое увеличение кнопки при наведении */
+        }
+
+        button {
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            color: white;
+            font-size: 18px;
+        }
+
+        .button-container button:first-of-type {
+            background: linear-gradient(135deg, #f39c12, #f1c40f); /* Золотистый градиент для первой кнопки */
+        }
+
+        .button-container button:first-of-type:hover {
+            background: linear-gradient(135deg, #e67e22, #f39c12); /* Теплый градиент для первой кнопки при наведении */
+        }
+
+        .button-container button:last-of-type {
+            background: linear-gradient(135deg, #d47a7a, #a93226); /* Мягкий розовато-бордовый градиент */
+        }
+
+        .button-container button:last-of-type:hover {
+            background: linear-gradient(135deg, #b74141, #8e3e3e); /* Более темный градиент при наведении */
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 28px;  /* Оставляем общий размер шрифта для текста */
+/*            font-weight: bold;  /* Жирный шрифт */*/
+            color: black;  /* Устанавливаем черный цвет текста */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);  /* Увеличиваем тень для лучшего контраста */
+            text-align: center;
+        }
+
+        .result .amount {
+            font-size: 36px;  /* Увеличиваем размер цифр */
+            font-weight: bold;  /* Жирный шрифт */
+            color: #4fa3f7;  /* Яркий синий цвет для выделения цифр */
+            text-shadow: none;  /* Убираем тень для цифр */
+        }
+
+        .error, .result {
+            text-align: center; /* Центрируем ошибки и результат */
+        }
+
+        .error {
+            display: none;
+            color: #d9534f;  /* Красный цвет текста */
+            font-size: 18px;
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: center;  /* Центрируем текст */
+        }
+
+        .table-container {
+            margin-top: 20px;
+            width: 90%;
+            max-width: 500px;
+            margin: 20px auto;
+            display: none;
+        }
+
+        .table-result {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+        }
+
+        .table-result th, .table-result td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .table-result th {
+            background-color: #f2f2f2;
+        }
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .days-count {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            background-color: #f0f0f0;
+            padding: 8px;
+            border-radius: 8px;
+            border: 2px solid #28a745; /* Зеленая окантовка */
+            text-align: center;
+            margin-top: 20px; /* Отступ сверху */
+            display: none;  /* Скрываем блок по умолчанию */
+            min-width: 100px;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+
+
+        .table-container {
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container, .table-container {
+                padding: 15px;
+                max-width: 100%;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            input, button {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .table-result th, .table-result td {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container, .table-container {
+                padding: 10px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+
+            input, button {
+                font-size: 12px;
+                padding: 6px;
+            }
+
+            .table-result th, .table-result td {
+                font-size: 10px;
+                padding: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>ПЛАНИРОВЩИК ВЫЖИВАНИЯ</h2>
+    <div class="form-group">
+        <label for="amount">Введите сумму:</label>
+        <input type="number" id="amount" placeholder="Сумма" required>
+    </div>
+    <div class="form-group">
+        <label for="start-date">Начальная дата:</label>
+        <input type="date" id="start-date" required>
+    </div>
+    <div class="form-group">
+        <label for="end-date">Конечная дата:</label>
+        <input type="date" id="end-date" required>
+    </div>
+    <div class="form-group">
+        <div class="button-container">
+            <button onclick="calculateDailyAmount()">На день</button>
+            <button onclick="calculatePeriodAmount()">На период</button>
+        </div>
+    </div>
+    <div id="error-message" class="error"></div>
+    <div class="center-container">
+        <div id="days-count" class="days-count"></div>
+    </div>
+    <div id="result" class="result"></div>
+    <div class="table-container" id="table-container">
+        <table id="result-table" class="table-result">
+            <thead>
+                <tr>
+                    <th>День месяца</th>
+                    <th>Остаток</th>
+                    <th>Сумма на день</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    function roundToNearestTen(num) {
+        return Math.round(num / 10) * 10;
+    }
+
+    function getDayOfMonth(date) {
+        return date.getDate();
+    }
+
+    const today = new Date();
+    const nextDay = new Date(today);
+    nextDay.setDate(today.getDate() + 1);
+    document.getElementById('start-date').value = nextDay.toISOString().split('T')[0];
+
+    function clearMessages() {
+        document.getElementById('error-message').style.display = 'none';
+        document.getElementById('error-message').textContent = '';
+        document.getElementById('result').textContent = '';
+        document.getElementById('days-count').textContent = '';
+        document.getElementById('days-count').style.display = 'none';  // Скрываем элемент
+        document.getElementById('table-container').style.display = 'none';
+    }
+
+    function showError(message) {
+        const errorMessage = document.getElementById('error-message');
+        errorMessage.style.display = 'block';
+        errorMessage.textContent = message;
+    }
+
+    function calculateDailyAmount() {
+        clearMessages();
+
+        const amount = parseFloat(document.getElementById('amount').value);
+        const startDate = new Date(document.getElementById('start-date').value);
+        const endDate = new Date(document.getElementById('end-date').value);
+
+        if (isNaN(amount) || amount <= 0) {
+            showError('Пожалуйста, введите корректную сумму.');
+            return;
+        }
+
+        if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+            showError('Выберите конечную дату');
+            return;
+        }
+
+        if (endDate <= startDate) {
+            showError('Конечная дата должна быть позже начальной.');
+            return;
+        }
+
+        const totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)); // Не учитываем конечную дату
+        const dailyAmount = roundToNearestTen(amount / totalDays);
+
+        document.getElementById('result').innerHTML = `Сумма на день: <span class="amount">${dailyAmount}</span>`;
+        document.getElementById('days-count').textContent = `Дней: ${totalDays}`; // Выводим количество дней
+
+        // Показываем рамку с количеством дней
+        const daysCountElement = document.getElementById('days-count');
+        daysCountElement.style.display = 'inline-block'; // Показываем элемент с подгонкой по содержимому
+    }
+
+    function calculatePeriodAmount() {
+        clearMessages();
+
+        const amount = parseFloat(document.getElementById('amount').value);
+        const startDate = new Date(document.getElementById('start-date').value);
+        const endDate = new Date(document.getElementById('end-date').value);
+
+        if (isNaN(amount) || amount <= 0) {
+            showError('Пожалуйста, введите корректную сумму.');
+            return;
+        }
+
+        if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+            showError('Выберите конечную дату');
+            return;
+        }
+
+        if (endDate <= startDate) {
+            showError('Конечная дата должна быть позже начальной.');
+            return;
+        }
+
+        const totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)); // Не учитываем конечную дату
+        const dailyAmount = roundToNearestTen(amount / totalDays);
+
+        let remainingAmount = amount;
+        const tbody = document.getElementById('result-table').getElementsByTagName('tbody')[0];
+        tbody.innerHTML = '';
+
+        let currentDate = new Date(startDate);
+        let rowCount = 0;
+        for (let day = 0; day < totalDays; day++) {
+            const dayOfMonth = getDayOfMonth(currentDate);
+            currentDate.setDate(currentDate.getDate() + 1);
+
+            const row = tbody.insertRow();
+            const rowRemainingAmount = remainingAmount;
+            const rowDailyAmount = (remainingAmount < dailyAmount && day === totalDays - 1) ? remainingAmount : dailyAmount;
+
+            row.insertCell(0).textContent = dayOfMonth;
+            row.insertCell(1).textContent = rowRemainingAmount;
+            row.insertCell(2).textContent = rowDailyAmount;
+
+            remainingAmount -= dailyAmount;
+
+            if (remainingAmount <= 0) {
+                break;
+            }
+        }
+
+        document.getElementById('table-container').style.display = 'block';
+
+        // Убедимся, что количество дней выводится
+        const daysCountElement = document.getElementById('days-count');
+        daysCountElement.textContent = `Дней: ${totalDays}`; // Выводим количество дней
+        daysCountElement.style.display = 'inline-block'; // Показываем элемент с подгонкой по содержимому
+    }
+</script>
+</body>
+</html>
