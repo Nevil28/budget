@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <title>Калькулятор суммы</title>
     <style>
         body {
@@ -30,9 +29,9 @@
 
         h2 {
             text-align: center;
-            font-size: 36px;
-            font-family: 'Cinzel', serif; /* Элегантный шрифт */
+            font-size: 38px;
             font-weight: 700;  /* Немного увеличим жирность */
+            font-family: Montserrat;
             text-transform: uppercase;  /* Делаем текст заглавными буквами */
             letter-spacing: 2px;  /* Расширяем расстояние между буквами */
             text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);  /* Добавляем тени для эффекта объема */
@@ -117,7 +116,6 @@
         .result {
             margin-top: 20px;
             font-size: 28px;  /* Оставляем общий размер шрифта для текста */
-/*            font-weight: bold;  /* Жирный шрифт */*/
             color: black;  /* Устанавливаем черный цвет текста */
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);  /* Увеличиваем тень для лучшего контраста */
             text-align: center;
@@ -241,7 +239,7 @@
 </head>
 <body>
 <div class="container">
-    <h2>ПЛАНИРОВЩИК ВЫЖИВАНИЯ</h2>
+    <h2>ПЛАНИРОВЩИК<br>ВЫЖИВАНИЯ</h2>
     <div class="form-group">
         <label for="amount">Введите сумму:</label>
         <input type="number" id="amount" placeholder="Сумма" required>
