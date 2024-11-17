@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <title>Калькулятор суммы</title>
     <style>
         body {
@@ -29,16 +30,17 @@
 
         h2 {
             text-align: center;
-            color: #ffd700;  /* Золотой цвет для заголовка */
-            font-size: 36px;  /* Увеличиваем размер шрифта */
-            font-family: 'Georgia', serif; /* Элегантный шрифт */
-            font-weight: bold;  /* Увеличиваем жирность шрифта */
+            font-size: 32px;
+            font-family: 'Cinzel', serif; /* Элегантный шрифт */
+            font-weight: 700;  /* Немного увеличим жирность */
             text-transform: uppercase;  /* Делаем текст заглавными буквами */
-            letter-spacing: 2px;  /* Расширяем расстояние между буквами для дополнительного эффекта */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), 0 0 8px rgba(255, 215, 0, 0.8);  /* Легкая тень для четкости */
-            -webkit-font-smoothing: antialiased;  /* Убирает размытость на шрифтах */
-            -moz-osx-font-smoothing: grayscale;  /* Ожидается улучшение четкости на macOS */
-/*            border-bottom: 4px solid #ffd700;  /* Добавляем границу снизу для выделения */*/
+            letter-spacing: 2px;  /* Расширяем расстояние между буквами */
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);  /* Добавляем тени для эффекта объема */
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            background: linear-gradient(to right, #f39c12, #f1c40f);  /* Градиентный фон */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .form-group {
